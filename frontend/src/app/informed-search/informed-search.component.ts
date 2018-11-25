@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-informed-search',
@@ -7,14 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InformedSearchComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router : Router) { }
 
   ngOnInit() {
   }
 
-  onClick()
+  onClick(text:string)
   {
-    
+    // pass this to the service and let the service do its stuff
+    // meanwhile, we'll reroute to the next place.
+    alert(text);
+    this.router.navigateByUrl('/results');
+
   }
 
 }
