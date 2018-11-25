@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { SearchService } from '../search.service';
 
@@ -10,19 +9,14 @@ import { SearchService } from '../search.service';
 })
 export class InformedSearchComponent implements OnInit {
 
-  constructor(private router : Router, private search : SearchService) { }
+  constructor(private search : SearchService) { }
 
   ngOnInit() {
   }
 
   onClick(text:string)
   {
-    // pass this to the service and let the service do its stuff
-    // meanwhile, we'll reroute to the next place.
-    alert(text);
-    this.search.test().subscribe((data)=>console.log(data));
-    this.router.navigateByUrl('/results');
-
+    this.search.keywords(text);
   }
 
 }

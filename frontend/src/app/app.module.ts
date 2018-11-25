@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { InformedSearchComponent } from './informed-search/informed-search.component';
 import { ResultsViewComponent } from './results-view/results-view.component';
+import { SourcesViewComponent } from './sources-view/sources-view.component';
 
 const routes : Routes = [
   {path:'', redirectTo:'search', pathMatch:'full'},
@@ -17,7 +18,8 @@ const routes : Routes = [
   declarations: [
     AppComponent,
     InformedSearchComponent,
-    ResultsViewComponent
+    ResultsViewComponent,
+    SourcesViewComponent
   ],
   imports: [
     BrowserModule,
