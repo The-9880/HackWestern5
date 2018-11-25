@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { InformedSearchComponent } from './informed-search/informed-search.component';
 import { ResultsViewComponent } from './results-view/results-view.component';
 import { SourcesViewComponent } from './sources-view/sources-view.component';
+import { RankingViewComponent } from './ranking-view/ranking-view.component';
+import { KeywordsViewComponent } from './keywords-view/keywords-view.component';
 
 const routes : Routes = [
   {path:'', redirectTo:'search', pathMatch:'full'},
@@ -19,7 +21,9 @@ const routes : Routes = [
     AppComponent,
     InformedSearchComponent,
     ResultsViewComponent,
-    SourcesViewComponent
+    SourcesViewComponent,
+    RankingViewComponent,
+    KeywordsViewComponent
   ],
   imports: [
     BrowserModule,

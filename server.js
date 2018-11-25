@@ -1,11 +1,18 @@
 const express = require('express');
-
+const watsonFuncs = require('./watsonFuncs');
+const bodyParser = require('body-parser');
 
 var app = express();
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
 
-app.get('/api', (req, res)=>{
-    console.log('GET request');
-    res.json({message: "Got it!"});
+
+app.post('/api/keywords', (req, res)=>{
+    console.log("POST");
+    
+    watsonFuncs(req.body.text, (list) => {
+        res.json({list});
+    });
 });
 
 app.listen(8081, () => {
