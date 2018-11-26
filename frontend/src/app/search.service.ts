@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map, tap, first } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -13,7 +13,9 @@ export class SearchService {
 
   private APIkey: String = "AIzaSyAkpbzS4JKcqMsuDRAF6V1yCySTe5aR6ec";
 
-  private keyWords : Keyword[] = [];
+  // array of the most relevant keywords.
+  private keyWordsO : Keyword[] = [];
+  private keyWords : String[] = [];
 
   constructor(private http : HttpClient, private router : Router) { }
 
@@ -25,10 +27,15 @@ export class SearchService {
       for(var i = 1; i < data.list.length; i++ )
       {
         if(data.list[i].relevance >= 0.65)
-          this.keyWords.push(data.list[i]);
+          this.keyWordsO.push(data.list[i]);
       }
 
-      console.log(this.keyWords);
+      for(var x of this.keyWordsO)
+      {
+        this.keyWords.push(x.text);
+      }
+
+      console.log(this.keyWordsO);
       this.router.navigateByUrl('/results');
     });
   }
@@ -38,7 +45,31 @@ export class SearchService {
   {
     var temp = [];
 
-    return temp;
+    // run the first query separately.
+    var firstQuery = String(this.keyWords.join(' '));
+    firstQuery = firstQuery.replace(' ', "%20");
+    
+    var url = `https://www.googleapis.com/customsearch/v1?q=${firstQuery}
+        &cx=004783182965789597506:xaux1pp2owy&key=${this.APIkey}`;
+
+
+    var promiseList = [];
+
+    promiseList.push(this.http.post('/api/query', {url}, {responseType:'text'}).toPromise());
+
+    // for(var x of this.keyWords)
+    // {
+    //   var y = x.replace(" ", "%20");
+    //   promiseList.push(this.http.post('/api/query', {y}, {responseType:'text'}).toPromise());
+    // }
+
+    Promise.all(promiseList).then((vals) => {
+      alert(vals[0]);
+      console.log(vals);
+      temp.push(...vals);
+      console.log(temp);
+      return temp;
+    });
   }
 
   // Function returns a copy of the array of keywords

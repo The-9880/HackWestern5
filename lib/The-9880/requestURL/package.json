@@ -1,0 +1,20 @@
+{
+  "name": "requestURL",
+  "version": "0.0.0",
+  "description": "",
+  "author": "The-9880 <anant98@hotmail.com>",
+  "main": "functions/__main__.js",
+  "dependencies": {
+    "request": "^2.88.0"
+  },
+  "private": true,
+  "stdlib": {
+    "build": "faaslang",
+    "name": "The-9880/requestURL",
+    "timeout": 10000,
+    "personalize": {
+      "keys": [],
+      "user": []
+    }
+  }
+}

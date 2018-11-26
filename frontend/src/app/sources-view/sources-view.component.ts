@@ -15,12 +15,20 @@ export class SourcesViewComponent implements OnInit {
 
   ngOnInit() {
 
-    var these = this.search.announce();
-
-    for(var x of these)
-    {
-      this.sources.push(x.text);
+    let promise = new Promise((resolve, reject) => {
+      resolve(this.search.findResources());
+    }).then((data) =>{
+      this.sources = data;
+      alert(data);
     }
+    );
+
+    // this.search.findResources().then((data) => {
+    //   this.sources = data;
+    // });
+
+    // this.sources = this.search.findResources();
+    // console.log('Sources: ' + this.sources);
   }
 
 }

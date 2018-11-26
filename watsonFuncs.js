@@ -23,7 +23,8 @@ function analyzeText(analysisText, callback){
       else
       {
         // console.log(JSON.stringify(res, null, 2));
-        keywordsList.push(JSON.stringify(res.concepts[0].text));
+        if(res.concepts[0])
+          keywordsList.push(JSON.stringify(res.concepts[0].text));
         for(var x of res.keywords)
         {
             console.log(x);
